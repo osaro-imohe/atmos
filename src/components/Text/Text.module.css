@@ -1,0 +1,31 @@
+.sm{
+	font-size: 12px;
+}
+
+.md{
+	font-size: 16px;
+}
+
+.lg{
+	font-size: 24px;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+.primary {
+	color: black;
+}
+
+.secondary {
+	color: gray;
+}
+
+.tertiary {
+	color: white;
+}
+
+.text{
+	word-break: break-all;
+}

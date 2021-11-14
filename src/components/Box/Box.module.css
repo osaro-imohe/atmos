@@ -1,0 +1,36 @@
+	.box {
+	display: flex;
+	flex-direction: initial;
+	}
+
+	.block {
+	display: block;
+	}
+
+	.inline {
+	display: inline-flex;
+	}
+
+	.block.inline {
+	display: inline-block;
+	}
+
+	/* Direction */
+	.flexDirectionRow {
+	flex-direction: row;
+	}
+	.flexDirectionColumn {
+	flex-direction: column;
+	}
+
+	.fullWidth {
+	width: 100%;
+	}
+
+	.fullHeight {
+	height: 100%;
+	}
+
+	.border{
+		border: 1px solid gray;
+	}
