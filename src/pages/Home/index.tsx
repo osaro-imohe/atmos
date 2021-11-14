@@ -117,24 +117,6 @@ const Homes = () => {
               </Box>
             )}
           </Box>
-          {/* <Box
-            fullHeight
-            fullWidth
-            marginTop="10px"
-            inline
-            flexWrap="wrap"
-          >
-            {homes.map((home) => (
-              <HomeCard
-                home={home}
-                enableLikes
-                key={Math.random()}
-                onClick={() => navigate(
-                  `/homes?selected-home-plan=${convertNameToQueryParam(home.name)}`,
-                )}
-              />
-            ))}
-          </Box> */}
         </Box>
       </Box>
       {searchParams && (
