@@ -112,11 +112,7 @@ export const LotCard = ({
         borderRadius="10px"
         marginBottom="10px"
       >
-        <img
-          src={lot.image}
-          alt="A lot"
-          className={styles.cardimage}
-        />
+        <img src={lot.image} alt="A lot" className={styles.cardimage} />
       </Box>
       <LotInfo
         address={lot.address}

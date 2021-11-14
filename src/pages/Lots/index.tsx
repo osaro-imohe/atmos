@@ -11,7 +11,10 @@ import Modal from '../../components/Modal';
 import { Home, Lot } from '../../types/components';
 import { State } from '../../store';
 import {
-  convertNameToQueryParam, convertQueryParamToName, getAddressDetails, getCompatibleHomes,
+  convertNameToQueryParam,
+  convertQueryParamToName,
+  getAddressDetails,
+  getCompatibleHomes,
 } from '../../utils';
 import API from '../../api';
 
@@ -70,40 +73,46 @@ const Lots = () => {
             />
           </Box>
           <Box fullHeight fullWidth marginTop="10px" inline flexWrap="wrap">
-            {!filterLots ? lots.map((lot) => (
-              <LotCard
-                lot={lot}
-                key={lot.lotId}
-                enableLikes
-                isLiked={likedLots.indexOf(lot.lotId) >= 0}
-                toggleLike={() => (likedLots.indexOf(lot.lotId) >= 0
-                  ? setLikedLots(likedLots.filter((num) => num !== lot.lotId))
-                  : setLikedLots([...likedLots, lot.lotId]))}
-                onClick={() => {
-                  const { street } = getAddressDetails(lot.address);
-                  navigate(
-                    `/lots?selected-lot=${convertNameToQueryParam(street)}`,
-                  );
-                }}
-              />
-            )) : filteredLots.map((lot) => (
-              <LotCard
-                lot={lot}
-                key={lot.lotId}
-                enableLikes
-                isLiked={likedLots.indexOf(lot.lotId) >= 0}
-                toggleLike={() => (likedLots.indexOf(lot.lotId) >= 0
-                  ? setLikedLots(likedLots.filter((num) => num !== lot.lotId))
-                  : setLikedLots([...likedLots, lot.lotId]))}
-                onClick={() => {
-                  const { street } = getAddressDetails(lot.address);
-                  navigate(
-                    `/lots?selected-lot=${convertNameToQueryParam(street)}`,
-                  );
-                }}
-              />
-            ))}
-            {(filteredLots && filteredLots.length <= 0) && (
+            {!filterLots
+              ? lots.map((lot) => (
+                <LotCard
+                  lot={lot}
+                  key={lot.lotId}
+                  enableLikes
+                  isLiked={likedLots.indexOf(lot.lotId) >= 0}
+                  toggleLike={() => (likedLots.indexOf(lot.lotId) >= 0
+                    ? setLikedLots(
+                      likedLots.filter((num) => num !== lot.lotId),
+                    )
+                    : setLikedLots([...likedLots, lot.lotId]))}
+                  onClick={() => {
+                    const { street } = getAddressDetails(lot.address);
+                    navigate(
+                      `/lots?selected-lot=${convertNameToQueryParam(street)}`,
+                    );
+                  }}
+                />
+              ))
+              : filteredLots.map((lot) => (
+                <LotCard
+                  lot={lot}
+                  key={lot.lotId}
+                  enableLikes
+                  isLiked={likedLots.indexOf(lot.lotId) >= 0}
+                  toggleLike={() => (likedLots.indexOf(lot.lotId) >= 0
+                    ? setLikedLots(
+                      likedLots.filter((num) => num !== lot.lotId),
+                    )
+                    : setLikedLots([...likedLots, lot.lotId]))}
+                  onClick={() => {
+                    const { street } = getAddressDetails(lot.address);
+                    navigate(
+                      `/lots?selected-lot=${convertNameToQueryParam(street)}`,
+                    );
+                  }}
+                />
+              ))}
+            {filteredLots && filteredLots.length <= 0 && (
               <Box
                 fullWidth
                 height="50px"
@@ -137,37 +146,19 @@ const Lots = () => {
               size="sm"
               text="X"
               onClick={() => navigate('/lots')}
-            >
-              <Text
-                text="X"
-                color="primary"
-                size="lg"
-              />
-            </Button>
+            />
           </Box>
-          <Box
-            marginTop="30px"
-            block
-          >
+          <Box marginTop="30px" block>
             {compatibleHomes.length <= 1 && (
               <Text color="secondary" size="md" text="No compatible homes" />
             )}
             {compatibleHomes.length >= 1 && (
-              <Text
-                text="Compatible Homes"
-                color="secondary"
-                size="md"
-              />
+              <Text text="Compatible Homes" color="secondary" size="md" />
             )}
           </Box>
-          <Box
-            fullWidth
-            fullHeight
-            marginTop="50px"
-            overflow="scroll"
-          >
+          <Box fullWidth fullHeight marginTop="50px" overflow="scroll">
             {compatibleHomes.map((home) => (
-              <HomeCard home={home} />
+              <HomeCard home={home} key={home.homePlanId} />
             ))}
           </Box>
         </Modal>

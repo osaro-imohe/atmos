@@ -4,24 +4,26 @@ import { applyMiddleware, createStore, Store } from 'redux';
 import { Lot, Home, LotToHome } from '../types/components';
 
 export interface State {
-lots: Lot[];
-homes: Home[];
-lotsToHomes: LotToHome[];
-compatibleLots: Lot[];
+  lots: Lot[];
+  homes: Home[];
+  lotsToHomes: LotToHome[];
 }
 
-type ActionTypes = 'ADD_LOTS' | 'ADD_HOMES' | 'ADD_LOT_HOMES' | 'ADD_COMPATIBLE_LOTS';
+type ActionTypes =
+  | 'ADD_LOTS'
+  | 'ADD_HOMES'
+  | 'ADD_LOT_HOMES'
+  | 'ADD_COMPATIBLE_LOTS';
 
 interface Action {
-type: ActionTypes;
-payload: any;
+  type: ActionTypes;
+  payload: any;
 }
 
 const initState: State = {
   lots: [],
   homes: [],
   lotsToHomes: [],
-  compatibleLots: [],
 };
 
 const stateReducer = (state = initState, action: Action) => {
@@ -32,15 +34,13 @@ const stateReducer = (state = initState, action: Action) => {
       return { ...state, homes: [...action.payload] };
     case 'ADD_LOT_HOMES':
       return { ...state, lotsToHomes: [...action.payload] };
-    case 'ADD_COMPATIBLE_LOTS':
-      return { ...state, compatibleLots: [...action.payload] };
     default:
       return state;
   }
 };
 
 export const store: Store<State, Action> & {
-  dispatch: ActionTypes
+  dispatch: ActionTypes;
 } = createStore(stateReducer, applyMiddleware(thunk));
 
 const { dispatch } = store;
@@ -55,8 +55,4 @@ export const setHomes = (houses: Home[]) => {
 
 export const setLotsToHomes = (lotsToHomes: LotToHome[]) => {
   dispatch({ type: 'ADD_LOT_HOMES', payload: [...lotsToHomes] });
-};
-
-export const setCompatibleLots = (lots: Lot[]) => {
-  dispatch({ type: 'ADD_COMPATIBLE_LOTS', payload: [...lots] });
 };

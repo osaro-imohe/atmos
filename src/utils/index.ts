@@ -36,19 +36,16 @@ export const getCompatibleLots = (
   lots: Lot[],
   lotsToHome: LotToHome[],
 ) => {
-  if (
-    !homeName
-    || !homes
-    || !lots
-    || !lotsToHome
-  ) {
+  if (!homeName || !homes || !lots || !lotsToHome) {
     return [];
   }
   try {
     const selectedHomes = homes.filter((home) => home.name === homeName);
     const currHome = selectedHomes[0];
     const { homePlanId } = currHome;
-    const filteredLotMaps = lotsToHome.filter((lotToHome) => lotToHome.homePlanId === homePlanId);
+    const filteredLotMaps = lotsToHome.filter(
+      (lotToHome) => lotToHome.homePlanId === homePlanId,
+    );
     const lotIds: number[] = [];
     filteredLotMaps.forEach((filteredLot) => lotIds.push(filteredLot.lotId));
     const compatibleLots = lots.filter((lot) => lotIds.indexOf(lot.lotId) >= 0);
@@ -74,11 +71,15 @@ export const getCompatibleHomes = (
     });
     const currLot = selectedLots[0];
     const { lotId } = currLot;
-    const filteredHomesMaps = lotsToHome.filter((lotToHome) => lotToHome.lotId === lotId);
+    const filteredHomesMaps = lotsToHome.filter(
+      (lotToHome) => lotToHome.lotId === lotId,
+    );
     const homeIds: number[] = [];
     filteredHomesMaps.forEach((filteredHome) => homeIds.push(filteredHome.homePlanId));
-    const comptibleHomes = homes.filter((home) => homeIds.indexOf(home.homePlanId) >= 0);
-    return comptibleHomes;
+    const compatibleHomes = homes.filter(
+      (home) => homeIds.indexOf(home.homePlanId) >= 0,
+    );
+    return compatibleHomes;
   } catch (e) {
     return [];
   }

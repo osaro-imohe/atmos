@@ -4,12 +4,7 @@ import Page from '../../components/Page';
 
 const NotFound = () => (
   <Page>
-    <Box
-      fullWidth
-      fullHeight
-      alignItems="center"
-      justifyContent="center"
-    >
+    <Box fullWidth fullHeight alignItems="center" justifyContent="center">
       <Text color="primary" size="lg" text="404 - Page not found" bold />
     </Box>
   </Page>

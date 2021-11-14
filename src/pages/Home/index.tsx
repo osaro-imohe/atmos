@@ -10,7 +10,11 @@ import Text from '../../components/Text';
 import { Home, Lot } from '../../types/components';
 import { State } from '../../store';
 import Modal from '../../components/Modal';
-import { convertNameToQueryParam, convertQueryParamToName, getCompatibleLots } from '../../utils';
+import {
+  convertNameToQueryParam,
+  convertQueryParamToName,
+  getCompatibleLots,
+} from '../../utils';
 import API from '../../api';
 
 const Homes = () => {
@@ -20,7 +24,10 @@ const Homes = () => {
   const [likedHomes, setLikedHomes] = useState<number[]>([]);
   const [searchParams, setSearchParams] = useState<string>('');
   const [compatibleLots, setCompatibleLots] = useState<Lot[]>([]);
-  const homes: Home[] = useSelector((state: State) => state.homes, shallowEqual);
+  const homes: Home[] = useSelector(
+    (state: State) => state.homes,
+    shallowEqual,
+  );
   const filteredHomes = useMemo(
     () => homes.filter((home) => likedHomes.indexOf(home.homePlanId) >= 0),
     [likedHomes],
@@ -41,11 +48,7 @@ const Homes = () => {
   }, [search]);
   return (
     <Page>
-      <Box
-        fullWidth
-        fullHeight
-        flexDirection="row"
-      >
+      <Box fullWidth fullHeight flexDirection="row">
         <Sidebar />
         <Box
           width="85%"
@@ -62,11 +65,7 @@ const Homes = () => {
             paddingLeft="5%"
             paddingRight="5%"
           >
-            <Text
-              size="lg"
-              color="primary"
-              text="Homes"
-            />
+            <Text size="lg" color="primary" text="Homes" />
             <Button
               variant="secondary"
               size="sm"
@@ -76,34 +75,44 @@ const Homes = () => {
             />
           </Box>
           <Box fullHeight fullWidth marginTop="10px" inline flexWrap="wrap">
-            {!filterHomes ? homes.map((home) => (
-              <HomeCard
-                home={home}
-                key={home.homePlanId}
-                enableLikes
-                isLiked={likedHomes.indexOf(home.homePlanId) >= 0}
-                toggleLike={() => (likedHomes.indexOf(home.homePlanId) >= 0
-                  ? setLikedHomes(likedHomes.filter((num) => num !== home.homePlanId))
-                  : setLikedHomes([...likedHomes, home.homePlanId]))}
-                onClick={() => navigate(
-                  `/homes?selected-home-plan=${convertNameToQueryParam(home.name)}`,
-                )}
-              />
-            )) : filteredHomes.map((home) => (
-              <HomeCard
-                home={home}
-                key={home.homePlanId}
-                enableLikes
-                isLiked={likedHomes.indexOf(home.homePlanId) >= 0}
-                toggleLike={() => (likedHomes.indexOf(home.homePlanId) >= 0
-                  ? setLikedHomes(likedHomes.filter((num) => num !== home.homePlanId))
-                  : setLikedHomes([...likedHomes, home.homePlanId]))}
-                onClick={() => navigate(
-                  `/homes?selected-home-plan=${convertNameToQueryParam(home.name)}`,
-                )}
-              />
-            ))}
-            {(filterHomes && filteredHomes.length <= 0) && (
+            {!filterHomes
+              ? homes.map((home) => (
+                <HomeCard
+                  home={home}
+                  key={home.homePlanId}
+                  enableLikes
+                  isLiked={likedHomes.indexOf(home.homePlanId) >= 0}
+                  toggleLike={() => (likedHomes.indexOf(home.homePlanId) >= 0
+                    ? setLikedHomes(
+                      likedHomes.filter((num) => num !== home.homePlanId),
+                    )
+                    : setLikedHomes([...likedHomes, home.homePlanId]))}
+                  onClick={() => navigate(
+                    `/homes?selected-home-plan=${convertNameToQueryParam(
+                      home.name,
+                    )}`,
+                  )}
+                />
+              ))
+              : filteredHomes.map((home) => (
+                <HomeCard
+                  home={home}
+                  key={home.homePlanId}
+                  enableLikes
+                  isLiked={likedHomes.indexOf(home.homePlanId) >= 0}
+                  toggleLike={() => (likedHomes.indexOf(home.homePlanId) >= 0
+                    ? setLikedHomes(
+                      likedHomes.filter((num) => num !== home.homePlanId),
+                    )
+                    : setLikedHomes([...likedHomes, home.homePlanId]))}
+                  onClick={() => navigate(
+                    `/homes?selected-home-plan=${convertNameToQueryParam(
+                      home.name,
+                    )}`,
+                  )}
+                />
+              ))}
+            {filterHomes && filteredHomes.length <= 0 && (
               <Box
                 fullWidth
                 height="50px"
@@ -121,43 +130,35 @@ const Homes = () => {
       </Box>
       {searchParams && (
         <Modal onClose={() => navigate('/homes')}>
-          <Box fullWidth justifyContent="space-between" paddingLeft="5%" paddingRight="5%">
+          <Box
+            fullWidth
+            justifyContent="space-between"
+            paddingLeft="5%"
+            paddingRight="5%"
+          >
             <Text
               text={convertQueryParamToName(searchParams)}
               color="primary"
               size="lg"
             />
-            <Button variant="secondary" size="sm" text="X" onClick={() => navigate('/homes')}>
-              <Text
-                text="X"
-                color="primary"
-                size="lg"
-              />
-            </Button>
+            <Button
+              variant="secondary"
+              size="sm"
+              text="X"
+              onClick={() => navigate('/homes')}
+            />
           </Box>
-          <Box
-            marginTop="30px"
-            block
-          >
+          <Box marginTop="30px" block>
             {compatibleLots.length <= 1 && (
-            <Text color="secondary" size="md" text="No compatible lots" />
+              <Text color="secondary" size="md" text="No compatible lots" />
             )}
             {compatibleLots.length >= 1 && (
-              <Text
-                text="Compatible Lots"
-                color="secondary"
-                size="md"
-              />
+              <Text text="Compatible Lots" color="secondary" size="md" />
             )}
           </Box>
-          <Box
-            fullWidth
-            fullHeight
-            marginTop="50px"
-            overflow="scroll"
-          >
+          <Box fullWidth fullHeight marginTop="50px" overflow="scroll">
             {compatibleLots.map((lot) => (
-              <LotCard lot={lot} />
+              <LotCard lot={lot} key={lot.lotId} />
             ))}
           </Box>
         </Modal>
