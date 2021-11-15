@@ -1,24 +1,10 @@
 /* eslint-disable default-param-last */
 import thunk from 'redux-thunk';
-import { applyMiddleware, createStore, Store } from 'redux';
+import {
+  applyMiddleware, createStore, Store,
+} from 'redux';
 import { Lot, Home, LotToHome } from '../types/components';
-
-export interface State {
-  lots: Lot[];
-  homes: Home[];
-  lotsToHomes: LotToHome[];
-}
-
-type ActionTypes =
-  | 'ADD_LOTS'
-  | 'ADD_HOMES'
-  | 'ADD_LOT_HOMES'
-  | 'ADD_COMPATIBLE_LOTS';
-
-interface Action {
-  type: ActionTypes;
-  payload: any;
-}
+import { State, Action, ActionTypes } from '../types/store';
 
 const initState: State = {
   lots: [],

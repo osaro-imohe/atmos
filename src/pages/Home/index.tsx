@@ -8,7 +8,7 @@ import Sidebar from '../../components/Sidebar';
 import Box from '../../components/Box';
 import Text from '../../components/Text';
 import { Home, Lot } from '../../types/components';
-import { State } from '../../store';
+import { State } from '../../types/store';
 import Modal from '../../components/Modal';
 import {
   convertNameToQueryParam,

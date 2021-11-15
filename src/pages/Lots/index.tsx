@@ -9,7 +9,7 @@ import Sidebar from '../../components/Sidebar';
 import Box from '../../components/Box';
 import Modal from '../../components/Modal';
 import { Home, Lot } from '../../types/components';
-import { State } from '../../store';
+import { State } from '../../types/store';
 import {
   convertNameToQueryParam,
   convertQueryParamToName,
